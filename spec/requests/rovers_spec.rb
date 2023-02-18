@@ -2,24 +2,54 @@ require 'rails_helper'
 
 RSpec.describe "Rovers", type: :request do
   describe "should moving rover" do
-    it 'should position final equal N' do
+    it 'should position final equal N and x and y not change' do
       params = {
         position: "1 2 N",
         control: "LLLL"
       }
 
       post '/rover', :params => params
-      expect(response.body).to eq({ "position": "N" }.to_json)
+      expect(response.body).to eq({ "position": "1 2 N" }.to_json)
     end
 
-    it 'should position final equal S' do
+    it 'should position final equal S and x and y not change' do
       params = {
         position: "1 2 N",
         control: "LLLR"
       }
 
       post '/rover', :params => params
-      expect(response.body).to eq({ "position": "S" }.to_json)
+      expect(response.body).to eq({ "position": "1 2 S" }.to_json)
+    end
+
+    it 'should position final to W and move 1 to x' do
+      params = {
+        position: "1 2 N",
+        control: "LM"
+      }
+
+      post '/rover', :params => params
+      expect(response.body).to eq({ "position": "0 2 W" }.to_json)
+    end
+
+    it 'should position final to N and move y to 4' do
+      params = {
+        position: "0 0 N",
+        control: "MMMM"
+      }
+
+      post '/rover', :params => params
+      expect(response.body).to eq({ "position": "0 4 N" }.to_json)
+    end
+
+    it 'should position final to N and move y to 5 after five movements' do
+      params = {
+        position: "0 0 N",
+        control: "MMMMMM"
+      }
+
+      post '/rover', :params => params
+      expect(response.body).to eq({ "position": "0 0 N" }.to_json)
     end
 
   end
