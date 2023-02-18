@@ -52,5 +52,45 @@ RSpec.describe "Rovers", type: :request do
       expect(response.body).to eq({ "position": "0 0 N" }.to_json)
     end
 
+    it 'should position final to E and move y to 3 after three movements' do
+      params = {
+        position: "0 0 N",
+        control: "RMMM"
+      }
+
+      post '/rover', :params => params
+      expect(response.body).to eq({ "position": "3 0 E" }.to_json)
+    end
+
+    it 'should position final to E and move y to 5 after five movements' do
+      params = {
+        position: "0 0 N",
+        control: "RMMMMM"
+      }
+
+      post '/rover', :params => params
+      expect(response.body).to eq({ "position": "5 0 E" }.to_json)
+    end
+
+    it 'should position final to E and move y to 0 after six movements' do
+      params = {
+        position: "0 0 N",
+        control: "RMMMMMM"
+      }
+
+      post '/rover', :params => params
+      expect(response.body).to eq({ "position": "0 0 E" }.to_json)
+    end
+
+    it 'xxx' do
+      params = {
+        position: "3 3 E",
+        control: "MMRMMRMRRM"
+      }
+
+      post '/rover', :params => params
+      expect(response.body).to eq({ "position": "5 1 E" }.to_json)
+    end
+
   end
 end

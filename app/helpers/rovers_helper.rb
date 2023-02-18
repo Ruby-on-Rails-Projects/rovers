@@ -35,22 +35,23 @@ module RoversHelper
 
     def move
       if @direction == 'N'
-        @coordinate_y += 1
-        if @coordinate_y > MAX_Y
-          @coordinate_y = 0
-        end
+        @coordinate_y +=1
+        @coordinate_y % MAX_Y
       end
 
       if @direction == 'E'
-        @coordinate_x += 1
-        if @coordinate_x > MAX_X
-          @coordinate_x = 0
-        end
+        @coordinate_x +=1
+        @coordinate_x % MAX_X
+      end
+
+      if @direction == 'S'
+        (@coordinate_y > 0) ? @coordinate_y -= 1 : @coordinate_y = MAX_Y - 1
       end
 
       if @direction == 'W'
-        @coordinate_x > 0 ? @coordinate_x -= 1 : @coordinate_x = MAX_X - 1
+        (@coordinate_x > 0) ? @coordinate_x -= 1 : @coordinate_x = MAX_X - 1
       end
+
     end
 
     def coordinate_x
