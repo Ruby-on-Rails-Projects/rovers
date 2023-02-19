@@ -1,31 +1,25 @@
 class RoversController < ApplicationController
-  include RoversHelper
+  require './app/services/rovers/movements'
 
   def order_direction
-    prepare_params
+    params_treated = helpers.rovers_params(params)
+    rover_movement = Rovers::Movements.new
 
-    @movements.each do |movement|
-      if movement == 'M'
-        rover_coordinate = RoversHelper::RoverCoordinate.new(x: @position_x, y: @position_y, direction: @direction)
-        rover_coordinate.move
-        @position_x = rover_coordinate.coordinate_x
-        @position_y = rover_coordinate.coordinate_y
-      end
-      @direction = RoversHelper::RoverDirection.new(direction: @direction, movement: movement).move
+    direction  = params_treated[:direction]
+    position_x = params_treated[:position_x]
+    position_y = params_treated[:position_y]
+
+    params_treated[:movements].each do |movement|
+
+      response = rover_movement.execute(
+        direction: direction, movement: movement, position_x: position_x, position_y: position_y)
+
+      position_x = response.dig(:position_x)
+      position_y = response.dig(:position_y)
+      direction  = response.dig(:direction)
+
     end
-    render :json => { "position":  "#{@position_x} #{@position_y} #{@direction}"}
-  end
-
-  private
-
-  def prepare_params
-    @params ||= params.permit(:position, :control)
-    position = @params.dig("position").split(" ")
-
-    @direction = position[2]
-    @position_x = position[0].to_i
-    @position_y = position[1].to_i
-    @movements = @params.dig("control").split("")
+    render :json => { "position": "#{position_x} #{position_y} #{direction}" }
   end
 
 end
