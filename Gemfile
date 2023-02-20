@@ -56,6 +56,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 6.0', '>= 6.0.1'
   gem "rswag-specs"
   gem 'byebug'
+  gem 'simplecov', require: false
 end
 
 group :development do
