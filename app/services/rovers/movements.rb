@@ -1,14 +1,10 @@
 module Rovers
-  require './app/services/rovers/spin'
-  require './app/services/rovers/move_on'
 
   class Movements
-    MAX_POSITION_Y = 5
-    MAX_POSITION_X = 5
 
     def initialize(move_on: Rovers::MoveOn, spin: Rovers::Spin)
-      @move_on = move_on.new(max_position_y: MAX_POSITION_Y, max_position_x: MAX_POSITION_X)
-      @spin = spin.new
+      @move_on = move_on
+      @spin = spin
     end
 
     def execute(direction:, movement:, position_x:, position_y:)

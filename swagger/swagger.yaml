@@ -1,0 +1,56 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/rover":
+    post:
+      summary: move on with Rovers
+      tags:
+        - Rovers
+      parameters: [ ]
+      responses:
+        '200':
+          description: rover moved successfully
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                grid:
+                  type: string
+                  example: '5 5'
+                rovers:
+                  type: array
+                  example: [ {
+                    position: '1 2 N',
+                    control: 'LMLMLMLMM'
+                  },
+                    {
+                      position: '3 3 E',
+                      control: 'MMRMMRMRRM'
+                    }
+                  ]
+              required:
+                - position
+                - control
+          application/xml:
+            schema:
+              type: object
+              properties:
+                grid:
+                  type: string
+                rovers:
+                  type: array
+              required:
+                - position
+                - control
+servers:
+  - url: http://{defaultHost}
+    variables:
+      defaultHost:
+        default: 127.0.0.1:3000

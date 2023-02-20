@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    image: rovers
+    command: >
+      sh -c "bundle exec rails server -b 0.0.0.0"
+    container_name: web
+    volumes:
+      - ./:/app/
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
+networks:
+  backend:
+    name: backend

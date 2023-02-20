@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-    post 'rover' => 'rovers#order_direction'
+  mount Rswag::Ui::Engine => "/api-docs"
+  mount Rswag::Api::Engine => "/api-docs"
+
+  post 'rover' => 'rovers#order_direction'
 end
