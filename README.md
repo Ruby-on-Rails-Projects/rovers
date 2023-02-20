@@ -1,24 +1,34 @@
-# README
-docker exec -it web rspec
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+## Rover Project
 
-* Ruby version
+Clone the project
 
-* System dependencies
+```bash
+  git clone https://gitlab.com/leandro-santana/rovers.git
+  git branch featuare/rovers
+```
 
-* Configuration
+Let's go up docker, keep in mind that you need docker and docker-compose in your machine, for more information access the links bellow:
 
-* Database creation
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04
 
-* Database initialization
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+  cd rovers
+  docker-compose up
+```
 
-* Deployment instructions
+Just in case you want to run tests You'll have to run the commands bellow.
 
-* ...
+```bash
+  rspec spec --format documentation --format progress
+```
+
+You can acces the project on browser with the link bellow, you'll see the swagger page with the route and examples for run rovers
+
+```bash
+  http://127.0.0.1:3000
+```
+

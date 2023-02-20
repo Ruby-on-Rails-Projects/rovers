@@ -4,8 +4,8 @@ services:
   web:
     build: .
     image: rovers
-    command: >
-      sh -c "bundle exec rails server -b 0.0.0.0"
+    command: >      
+      sh -c "rm /app/tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
     container_name: web
     volumes:
       - ./:/app/
