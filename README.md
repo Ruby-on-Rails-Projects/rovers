@@ -23,7 +23,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-c
 Just in case you want to run tests You'll have to run the commands bellow.
 
 ```bash
-  rspec spec --format documentation --format progress
+  docker exec -it web rspec spec --format documentation --format progress
 ```
 
 You can acces the project on browser with the link bellow, you'll see the swagger page with the route and examples for run rovers
